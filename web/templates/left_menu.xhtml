@@ -23,7 +23,7 @@ and open the template in the editor.
 
                      <h:form>
                          
-                       <h:commandLink action="#{searchController.fillBookByGenre()}" value="#{g.name}" styleClass="#{g.id==searchController.selectedGenreId ? 'selected_ganre':''}" > 
+                       <h:commandLink action="#{searchController.getBookByGenre()}" value="#{g.name}" styleClass="#{g.id==searchController.selectedGenreId ? 'selected_ganre':''}" > 
                            
                            <f:param name="genre_id" value="#{g.id}" />
 

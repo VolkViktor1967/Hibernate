@@ -157,6 +157,7 @@ public class HiberateSession implements Filter {
         // include requests.
         RequestWrapper wrappedRequest = new RequestWrapper((HttpServletRequest) request);
         ResponseWrapper wrappedResponse = new ResponseWrapper((HttpServletResponse) response);
+        System.out.println("open session"+wrappedRequest.getRequestURI());
         sessionFactory.getCurrentSession().beginTransaction();
         
         //sess = sessionFactory.getCurrentSession();
@@ -178,6 +179,7 @@ public class HiberateSession implements Filter {
         
         doAfterProcessing(wrappedRequest, wrappedResponse);
         sessionFactory.getCurrentSession().getTransaction().commit();
+        System.out.println("close session"+wrappedRequest.getRequestURI());
 
         // If there was a problem, we want to rethrow it if it is
         // a known type, otherwise log it.

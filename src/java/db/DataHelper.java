@@ -29,7 +29,11 @@ public class DataHelper {
     }
     
     public static DataHelper getInstance(){
-        return dataHelper == null ? new DataHelper() : dataHelper;
+        
+        if (dataHelper == null ){
+            dataHelper = new DataHelper();
+        }
+        return dataHelper; //== null ? new DataHelper() : dataHelper;
     }
     
     private Session getSession(){

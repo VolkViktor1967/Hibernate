@@ -8,6 +8,7 @@ package controllers;
 //import beans.Book;
 import entity.Book;
 import beans.BookList;
+import beans.Pager;
 import db.DataHelper;
 import db.Database;
 import enums.SearchType;
@@ -62,13 +63,21 @@ public class SearchController implements Serializable {
     
     
     private SearchType searchType;
-    //private static Map<String, SearchType> searchList = new HashMap<String, SearchType>();
     private List<Book> currentBookList;
     private Character[] russianLetters;
     private String searchString;
     private String currentSql;
     
     private boolean editMode;
+    
+    private Pager<Book>  pager = new Pager<Book>();
+    
+    private transient int row = -1;
+    
+    public int getRow(){
+        row+=1;
+        return row;
+    }
 
     public boolean isEditMode() {
            return editMode;
@@ -277,6 +286,7 @@ public class SearchController implements Serializable {
     public  void getAllBook(){
         
         currentBookList=DataHelper.getInstance().getAllBooks();
+        //DataHelper.getInstance().getAllBooks(pager);
         
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);

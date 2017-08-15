@@ -62,6 +62,7 @@ public class ShowImage extends HttpServlet {
             response.setContentLength(image.length);
             out.write(image);
             
+            
         }catch(Exception e){
             System.out.println("servlets.ShowImage.processRequest()"+e.getMessage());
         }
