@@ -5,6 +5,7 @@
  */
 package beans;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,13 +15,16 @@ import java.util.List;
 public class Pager<T> {
     private int selectedPageNumber =1;
     private int booksCountOnPage =2;
-    private int totalBooksCount; 
+    private long totalBooksCount; 
     private List<T> list;
+    private int pageCount;
+    private ArrayList<Integer> pageNambers = new ArrayList<>();
+
     
-    private int getFrom() {
+    public int getFrom() {
          return selectedPageNumber*booksCountOnPage - booksCountOnPage;
     }
-    private int getTo(){
+    public int getTo(){
         return booksCountOnPage;
     }
 
@@ -46,17 +50,43 @@ public class Pager<T> {
 
     public void setBooksCountOnPage(int booksCountOnPage) {
         this.booksCountOnPage = booksCountOnPage;
+        fillPageNumbers(totalBooksCount,booksCountOnPage);
     }
 
-    public int getTotalBooksCount() {
+    public long getTotalBooksCount() {
         return totalBooksCount;
     }
 
-    public void setTotalBooksCount(int totalBooksCount) {
+    public void setTotalBooksCount(long totalBooksCount) {
         this.totalBooksCount = totalBooksCount;
+        fillPageNumbers(totalBooksCount,booksCountOnPage);
     }
     
-    
-    
+        public ArrayList<Integer> getPageNambers() {
+        return pageNambers;
+    }
+
+    public void setPageNambers(ArrayList<Integer> pageNambers) {
+        this.pageNambers = pageNambers;
+    }
+   
+    private void fillPageNumbers(long totalBookCount, int bookOnPage) {
+        
+     if (totalBookCount % bookOnPage ==0){
+         pageCount = bookOnPage > 0 ? (int)(totalBookCount/bookOnPage):0;
+     }
+     else{
+         pageCount = bookOnPage > 0 ? (int)(totalBookCount/bookOnPage)+1:0;
+     } 
+         
+       /* int pageCount = totalBookCount>0 ? (int)(totalBookCount/bookOnPage):0;*/
+        pageNambers.clear();
+        //if ((totalBookCount%bookOnPage)>0)  pageCount++;
+
+        for (int i=1; i<=pageCount;i++){
+            pageNambers.add(i);
+        }
+        
+    }    
     
 }

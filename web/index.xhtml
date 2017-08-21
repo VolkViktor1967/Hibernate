@@ -8,30 +8,30 @@ and open the template in the editor.
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-          
+
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    
-      
+
+
     <h:head>
         <title>#{msg.welcom_title}</title>
         <h:outputStylesheet library="css" name="style_index.css" />
         <h:outputScript library="js" name="library.js" />
-        
+
     </h:head>
     <h:body>
-        
+
         <noscript>
             <h4><p> На Вашем браузере отключен JavaScript </p></h4>
             <style type="text/css" >
                 .main{display: none;}
             </style>
-            
+
         </noscript>
-            
-            
+
+
         <div class="main">
-            
+
             <div class="content" >
                 <p class="title">#{msg.index_title} </p>
                 <p class="title"><h:graphicImage library = "images" name="Jobs.jpg" width="76" height="97" /></p> 
@@ -39,7 +39,7 @@ and open the template in the editor.
             <div class="login_div" >
                 <p class="title"> #{msg.input_info} </p>
                 <h:form styleClass="login_form" >
-                    
+
                     <table>
                         <tr>
                             <td align="left">#{msg.input_name}</td>  
@@ -54,7 +54,7 @@ and open the template in the editor.
                                     <h:graphicImage library = "images" name="ajax_loading.gif" width="30" height="30" />
                                 </div>
                             </td>
-                            
+
                         </tr>    
                         <tr>
                             <td align="left">#{msg.input_password}</td>
@@ -66,38 +66,40 @@ and open the template in the editor.
                             </td>
                             <tr>
                                 <td  align="left" >
-                                   
-                                    <h:commandButton action="#{user1.login()}"  value=" #{msg.entry}" onclick="return CheckValue(this.form,'#{msg.login_required}')" >
+
+                                    <h:commandButton action="#{user1.login()}"  value=" #{msg.entry}" onclick="return CheckValue(this.form, '#{msg.login_required}')" >
                                         <f:ajax onevent="showProgress" execute="@form" render="@form" />
                                     </h:commandButton>
-                                          
-                                    
+
+
                                 </td>
                                 <td  align="left" >
-                                      <h:commandButton action="#{user1.logout()}"  value="#{msg.clear_user}"  />  
+                                    <h:commandButton action="#{user1.logout()}"  value="#{msg.clear_user}"  />  
                                 </td>
                             </tr>                        
                         </tr>    
                         <tr>
                             <td>
-                               <p><h:messages for="username" id = "login_error" styleClass="error" layout="list" /></p> 
+                                <p><h:messages for="username" id = "login_error" styleClass="error" layout="list" /></p> 
                             </td>
                         </tr>    
                     </table>
-                    
+
                 </h:form>
-                
-                
+
+
                 <ui:include src="templates/locales.xhtml"/>
-               
-                
+
+
             </div>
-            
-           
-           <div class="footer">#{msg.author_info}</div>                
-                        
-            
-            
+
+
+            <div class="footer">#{msg.author_info}</div>                
+
+
+
         </div>    
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
     </h:body>
 </html>

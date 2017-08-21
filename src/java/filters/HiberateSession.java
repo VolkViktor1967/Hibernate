@@ -33,7 +33,7 @@ import entity.HibernateUtil;
  *
  * @author User
  */
-@WebFilter(filterName = "HiberateSession", urlPatterns = {"/*"})
+@WebFilter(filterName = "HiberateSession",urlPatterns = {"/*"}) //urlPatterns = {"/pages/*","/pdfContent"})
 public class HiberateSession implements Filter {
     
     private SessionFactory sessionFactory = null;

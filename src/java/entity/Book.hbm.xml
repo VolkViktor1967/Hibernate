@@ -8,11 +8,14 @@
             <column name="id" />
             <generator class="identity" />
         </id>
-        <many-to-one name="genre" class="entity.Genre" fetch="join">
+        <many-to-one name="genre" class="entity.Genre" fetch="join"  lazy="false">
             <column name="genre_id" />
         </many-to-one>
-        <many-to-one name="author" class="entity.Author" fetch="join">
+        <many-to-one name="author" class="entity.Author" fetch="join" lazy="false">
             <column name="author_id" />
+        </many-to-one>
+        <many-to-one name="publisher" class="entity.Publisher" fetch="join" lazy="false">
+            <column name="publisher_id" />
         </many-to-one>
         <property name="name" type="string">
             <column name="name" length="45" />
@@ -30,9 +33,7 @@
         <property name="publishYear" type="java.lang.Integer">
             <column name="publish_year" />
         </property>
-        <property name="publisherId" type="java.lang.Integer">
-            <column name="publisher_id" />
-        </property>
+        
         <property name="image" type="binary">
             <column name="image" />
         </property>

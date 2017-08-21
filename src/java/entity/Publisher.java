@@ -1,6 +1,10 @@
 package entity;
 // Generated Aug 2, 2017 4:18:40 PM by Hibernate Tools 4.3.1
 
+import java.util.HashSet;
+import java.util.Set;
+
+
 
 
 /**
@@ -11,6 +15,7 @@ public class Publisher  implements java.io.Serializable {
 
      private Integer id;
      private String name;
+     private Set books = new HashSet(0);
 
     public Publisher() {
     }
@@ -34,6 +39,13 @@ public class Publisher  implements java.io.Serializable {
         this.name = name;
     }
 
+   public Set getBooks() {
+        return this.books;
+    }
+    
+    public void setBooks(Set books) {
+        this.books = books;
+    }
 
 
 

@@ -12,13 +12,14 @@ public class Book  implements java.io.Serializable {
      private Integer id;
      private Genre genre;
      private Author author;
+     private Publisher publisher;
      private String name;
      private byte[] content;
      private Integer pageCount;
      private String isbn;
      //private Integer authorId;
      private Integer publishYear;
-     private Integer publisherId;
+     //private Integer publisherId;
      private byte[] image;
      private String descr;
      private String bookcol;
@@ -37,16 +38,17 @@ public class Book  implements java.io.Serializable {
     public Book() {
     }
 
-    public Book(Genre genre,Author author, String name, byte[] content, Integer pageCount, String isbn/*, Integer authorId*/, Integer publishYear, Integer publisherId, byte[] image, String descr, String bookcol) {
+    public Book(Genre genre,Author author, Publisher publisher, String name, byte[] content, Integer pageCount, String isbn/*, Integer authorId*/, Integer publishYear, /*Integer publisherId,*/ byte[] image, String descr, String bookcol) {
        this.genre = genre;
        this.author = author;
+       this.publisher = publisher;
        this.name = name;
        this.content = content;
        this.pageCount = pageCount;
        this.isbn = isbn;
        //this.authorId = authorId;
        this.publishYear = publishYear;
-       this.publisherId = publisherId;
+       //this.publisherId = publisherId;
        this.image = image;
        this.descr = descr;
        this.bookcol = bookcol;
@@ -59,6 +61,17 @@ public class Book  implements java.io.Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+    
+    
+    
     public Author getAuthor() {
         return this.author;
     }
@@ -115,14 +128,14 @@ public class Book  implements java.io.Serializable {
     
     public void setPublishYear(Integer publishYear) {
         this.publishYear = publishYear;
-    }
+    }/*
     public Integer getPublisherId() {
         return this.publisherId;
     }
     
     public void setPublisherId(Integer publisherId) {
         this.publisherId = publisherId;
-    }
+    }*/
     public byte[] getImage() {
         return this.image;
     }

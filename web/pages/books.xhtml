@@ -23,7 +23,7 @@ and open the template in the editor.
             </ui:define>           
             
             <ui:define name="book_count">
-                <p><strong>#{msg.book_count} #{searchController.totalBookCount} </strong> </p>
+                <p><strong>#{msg.book_count} #{searchController.pager.totalBooksCount} </strong> </p>
             </ui:define>
 
             
@@ -32,25 +32,28 @@ and open the template in the editor.
                 
                 <h:form id="booksForm">
                 <h:panelGroup class="admin_tools" rendered="#{facesContext.externalContext.isUserInRole('ADMIN')}">
-                    <p>
+                    
+                  
+                   
                     <!-- <h:commandLink rendered="'не забудь решетку'{!searchController.isEditMode()}" > -->
                     <h:commandLink rendered="#{!searchController.isEditMode()}" >
                         <h:graphicImage library="images" name="Add.png" width="10px" height="10px" style="" />
                         <h:outputText value="#{msg.add_book}" ></h:outputText>
                     </h:commandLink>
                         
-                    <h:commandLink action="#{searchController.switchEditMode()}" rendered="#{!searchController.isEditMode()}" >
+                    <h:commandLink action="#{searchController.switchEditMode()}" rendered="#{!searchController.isEditMode()and searchController.pager.totalBooksCount>0 }" >
                         <h:graphicImage library="images" name="compose.png" width="10px" height="10px" style="" />
                         <h:outputText value="#{msg.edit}" ></h:outputText>
                     </h:commandLink>
                         
                         <h:commandButton action="#{searchController.updateBooks()}" class="admin_tools"  value="#{msg.save_book}" rendered="#{searchController.isEditMode()}"/>
                         <h:commandButton action="#{searchController.cansel()}" immediate="true" class="admin_tools" value="#{msg.cancel}" rendered="#{searchController.isEditMode()}"/>
-                   </p> 
+                   
+                  
                 </h:panelGroup>
                 
                 
-                <h:dataTable value="#{searchController.currentBookList}" var="b" cellspacing="10px" columnClasses="col1,col2,col3">
+                <h:dataTable value="#{searchController.pager.list}" var="b" cellspacing="10px" columnClasses="col1,col2,col3">
                    
                     <h:column>
                         <h:outputLink value="#{request.contextPath}/PdfContent?id=#{b.id}" target="_blank">
@@ -74,13 +77,25 @@ and open the template in the editor.
                             
                             <p>
                                 <strong class="field_edit">#{msg.author_name}</strong>
-                                <h:inputText value="#{b.author.fio}"  class="field_edit" rendered="#{searchController.isEditMode() and b.edit}"></h:inputText>
-                                <h:outputText value="#{b.author.fio}" rendered="#{!b.edit}"></h:outputText>
+                                
+                                <h:outputText value="#{b.author.fio}" rendered="#{!b.edit}"></h:outputText> 
+                                
+                                <h:selectOneMenu rendered="#{b.edit}" value="#{b.author}"  converter="#{authorController}">
+                                    <f:selectItems value="#{authorController.selectItems}"/>
+                                </h:selectOneMenu>
+                                
+                               
                             </p>
                             <p>
                                 <strong class="field_edit">#{msg.genre}</strong>
-                                <h:inputText value="#{b.genre.name}" class="field_edit" rendered="#{searchController.isEditMode() and b.edit}"></h:inputText>
+                                
+                                
                                 <h:outputText value="#{b.genre.name}"  rendered="#{!b.edit}"></h:outputText>
+                                <h:selectOneMenu rendered="#{b.edit}" value="#{b.genre}"  converter="#{genreController}">
+                                    <f:selectItems value="#{genreController.selectItems}"/>
+                                </h:selectOneMenu>
+                                
+                                
                             </p>
                             <p>
                                 <strong class="field_edit">#{msg.publishYear}</strong>
@@ -129,15 +144,18 @@ and open the template in the editor.
         
             
             <ui:define name="pagenator">
-                <h:form rendered="#{searchController.totalBookCount>searchController.bookOnPage}">
-                    <h:selectOneMenu styleClass="" value="#{searchController.bookOnPage}" onchange="submit()" valueChangeListener="#{searchController.booksOnPageChanged}">
+                <h:form rendered="#{searchController.pager.totalBooksCount>0}">
+                    <h:selectOneMenu styleClass="" value="#{searchController.pager.booksCountOnPage}" onchange="submit()" valueChangeListener="#{searchController.booksOnPageChanged}">
                         <f:selectItem itemValue="2" />
                         <f:selectItem itemValue="5" />
                         <f:selectItem itemValue="50" />
                     </h:selectOneMenu>    
                     
-                    <ui:repeat value="#{searchController.pageNambers}" var="pageNamber">
-                        <h:commandLink value="#{pageNamber}" action="#{searchController.selectPage()}" styleClass="#{pageNamber==searchController.selectedPageNumber ? 'selected_page':''}" >
+                    <ui:repeat value="#{searchController.pager.pageNambers}" var="pageNamber">
+                        
+                        <h:outputText value="#{pageNumber}" rendered="#{pageNamber==searchController.pager.selectedPageNumber}" styleClass="selected_page"/>
+                        
+                        <h:commandLink value="#{pageNamber}" action="#{searchController.selectPage()}" styleClass="#{pageNamber==searchController.pager.selectedPageNumber ? 'selected_page':''}" >
                             <f:param name="page_namber" value="#{pageNamber}" />
                         </h:commandLink>
                     </ui:repeat>
